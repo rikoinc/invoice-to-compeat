@@ -8,6 +8,8 @@ var credentials = require(__dirname + '/credentials.json');
 
 var item_code_regex = /([A-Z]+)/;
 
+var args = process.argv.slice(2);
+
 
 var email_transport = nodemailer.createTransport({
   service: 'Gmail',
@@ -27,22 +29,24 @@ var outputFile = function(num, data, callback) {
     callback(num);
   });
 
-  email_transport.sendMail({
-    from:     credentials.gmail.from,
-    to:       credentials.gmail.to,
-    subject:  ('Invoice ' + num),
-    text:     '',
-    attachments: [
-      {
-        filename: (num + '.' + credentials.company + '.csv'),
-        content: output_str
-      }
-    ]
-  }, function(err, info) {
-    if (err) throw err;
+  if (args.indexOf('noemail') > 0) {  // If the '-noemail' argument was supplied, skip emailing
+    email_transport.sendMail({
+      from:     credentials.gmail.from,
+      to:       credentials.gmail.to,
+      subject:  ('Invoice ' + num),
+      text:     '',
+      attachments: [
+        {
+          filename: (num + '.' + credentials.company + '.csv'),
+          content: output_str
+        }
+      ]
+    }, function(err, info) {
+      if (err) throw err;
 
-    console.log('Email for invoice ' + num + ' sent:', info.response);
-  });
+      console.log('Email for invoice ' + num + ' sent:', info.response);
+    });
+  }
 };
 
 
