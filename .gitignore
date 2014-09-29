@@ -1,6 +1,9 @@
 # Logs
 logs
+data
+output
 *.log
+credentials.json
 
 # Runtime data
 pids

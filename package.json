@@ -1,0 +1,16 @@
+{
+  "name": "invoice-to-compeat",
+  "version": "0.0.1",
+  "description": "Translates QuickBooks invoice CSV to Compeat CSV format",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babyparse": "^0.2.1",
+    "nodemailer": "^1.3.0",
+    "numeral": "^1.5.3"
+  }
+}
