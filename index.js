@@ -12,12 +12,13 @@
   https://creativecommons.org/publicdomain/zero/1.0/
 */
 
-
 var fs          = require('fs');
 var Baby        = require('babyparse');
 var moment      = require('moment');
 var numeral     = require('numeral');
 var nodemailer  = require('nodemailer');
+
+var path_sep = require('path').sep;
 
 var credentials = require(__dirname + '/credentials.json');
 
@@ -38,7 +39,7 @@ var email_transport = nodemailer.createTransport({
 var outputFile = function(num, data, callback) {
   var output_str = Baby.unparse(data, { header: true });
 
-  fs.writeFile(__dirname + '/output/' + num + '.riko.csv', output_str, function(err) {
+  fs.writeFile(__dirname + path_sep + 'output' + path_sep + num + '.riko.csv', output_str, function(err) {
     if (err) throw err;
 
     callback(num);
@@ -65,7 +66,7 @@ var outputFile = function(num, data, callback) {
 };
 
 
-fs.readFile(__dirname + '/data/data.csv', function(err, buffer) {
+fs.readFile(__dirname + path_sep + 'data' + path_sep + 'data.csv', function(err, buffer) {
   if (err) throw err;
 
   var obj = Baby.parse(buffer.toString(), {
